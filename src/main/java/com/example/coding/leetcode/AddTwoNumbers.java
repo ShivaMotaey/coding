@@ -52,6 +52,11 @@ public class AddTwoNumbers {
         System.out.println(obj.addTwoNumbers(l1, l2));
         System.out.println(obj.addTwoNumbers1(l1, l2));
 
+        ListNode ln1= new ListNode(243);
+        ListNode ln2= new ListNode(564);
+        ListNode lr = obj.addTwoNumbersListNode(ln1, ln2);
+        System.out.println(lr.val);
+
     }
     public String addTwoNumbers(LinkedList<Integer> l1, LinkedList<Integer> l2) {
         StringBuilder sl1 = new StringBuilder();
@@ -83,4 +88,44 @@ public class AddTwoNumbers {
         }
         return result;
     }
+
+    public ListNode addTwoNumbersListNode(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode();
+        ListNode current = dummyHead;
+        int carry = 0;
+
+        while (l1 != null || l2 != null) {
+            int x = (l1 != null) ? l1.val : 0;
+            int y = (l2 != null) ? l2.val : 0;
+            int sum = x + y + carry;
+            carry = sum / 10;
+
+            current.next = new ListNode(sum % 10);
+            current = current.next;
+
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+        }
+
+        if (carry > 0) {
+            current.next = new ListNode(carry);
+        }
+
+        return dummyHead.next;
+    }
+
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {}
+        ListNode(int val) {
+            this.val = val;
+        }
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
 }
